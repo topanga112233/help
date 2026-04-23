@@ -1,0 +1,29 @@
+Here is the direct lab testing guide for your integrated STM32 code. 
+
+### Q1: 100ms Toggle (PA5)
+* **Test:** Connect an oscilloscope probe to PA5. Run the program.
+* **Expect:** LED4 flashes rapidly. The scope shows a steady 5Hz square wave: exactly 100ms HIGH and 100ms LOW.
+
+### Q2: USART2 Counter (PA2)
+* **Test:** Connect PA2 (TX) to a PC serial terminal configured for VT100, 230400 baud. 
+* **Expect:** The terminal clears. A 5-digit zero-padded counter (`00000`) increments every 100ms, locked at coordinates X=20, Y=10.
+
+### Q3: TIM14 Output Compare (PC12)
+* **Test:** Move the oscilloscope probe to PC12.
+* **Expect:** A perfect 500Hz square wave. The positive width measures exactly 1.00ms with zero software jitter.
+
+### Q4: Hardware Scaling via Button (PC13)
+* **Test:** Keep the scope on PC12. Press the blue user button (PC13) sequentially.
+* **Expect:** The positive pulse width cycles exactly with each press: 1ms -> 2ms -> 3ms -> 4ms -> 5ms, then rolls back to 1ms.
+
+### Q5: TIM16 PWM Generation (PA6)
+* **Test:** Connect the oscilloscope to PA6.
+* **Expect:** A 1kHz signal (total period of 1ms). The signal remains HIGH for exactly 750µs (75% duty cycle) and LOW for 250µs.
+
+### Q6: Dynamic PWM Sweep (PA6)
+* **Test:** Keep the scope on PA6 and observe the waveform over 10 seconds.
+* **Expect:** The duty cycle visibly "breathes," expanding by 10µs (1%) every 100ms until it hits 99%, then snaps back to 1%.
+
+### Q7: 7-Segment Display & Switches (PC4, PD8, PD9)
+* **Test:** Connect PC4 to the display's RX pin (9600 baud). Wire physical switches from PD8 and PD9 to ground.
+* **Expect:** The display boots to `0000`. Pressing PD9 increments the value. Pressing PD8 decrements it. Values wrap cleanly at `0000` and `9999`.
